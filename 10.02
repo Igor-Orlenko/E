@@ -1,0 +1,74 @@
+n = int(input())
+a = [[(i * n) + j + 1 for j in range(n)] for i in range(n)]
+a1 = [[((j + 1) + i % 2) % 2 for j in range(n)] for i in range(n)]
+cn = n ** 2
+c = 1
+k = 2 * n + (2 * n + 1) % 2
+if n % 2 == 1:
+    while cn != 1:
+        f = 0
+        ans = []
+        for i in range(n):
+            if f == 1:
+                break
+            if a[i].count(0) == n:
+                continue
+            else:
+
+                for j in range(n):
+                    if a[i][j] != 0:
+                        if c == a1[i][j]:
+                            ans += [a[i][j]]
+                            a[i][j] = 0
+                f = 1
+        f1 = 0
+        for i in range(n - 1, -1, -1):
+            if f1 == 1:
+                break
+            if a[i].count(0) == n:
+                continue
+            else:
+                for j in range(n):
+                    if a[i][j] != 0:
+                        if c == a1[i][j]:
+                            ans += [a[i][j]]
+                            a[i][j] = 0
+                f1 = 1
+        f2 = 0
+        for i in range(n):
+            if f2 == 1:
+                break
+            cnt = 0
+            for j in range(n):
+                if a[j][i] != 0:
+                    cnt += 1
+                    if c == a1[j][i]:
+                        ans += [a[j][i]]
+                        a[j][i] = 0
+                        f2 = 1
+            if cnt != 0:
+                break
+
+        f3 = 0
+        for i in range(n - 1, -1, -1):
+            if f3 == 1:
+                break
+            cnt = 0
+            for j in range(n - 1, -1, -1):
+                if a[j][i] != 0:
+                    cnt += 1
+                    if c == a1[j][i]:
+                        ans += [a[j][i]]
+                        a[j][i] = 0
+                        f3 = 1
+            if cnt != 0:
+                break
+        if ans:
+            print(k, *ans)
+            cn -= len(ans)
+        if c == 1:
+            c = 0
+        else:
+            c = 1
+        k += 2
+else:
